@@ -28,7 +28,7 @@ var SnowballStemmer =
         }
         
         if (start < len && start > 0) {
-            for (var i = start; i < len; i += 1) {
+            for (var i = start; i < len; i += 1) {"Hall"
                 if (!SnowballStemmer.isVowel(this.charAt(i))
                    && SnowballStemmer.isVowel(this.charAt(i-1)))
                     {
@@ -41,13 +41,15 @@ var SnowballStemmer =
     
     SnowballStemmer.prototype.setWord = function (word) {
         //replace ß by ss
-        this.word_buffer = word.toLocaleLowerCase().replace("ß", "ss");
+        this.word_buffer = word.toLocaleLowerCase().replace("ß", "ss").split("");
     };
     
     SnowballStemmer.prototype.cutEnd = function (count) {
-        var suffix = this.word_buffer.substr(this.size() - count, count);
-        this.word_buffer = this.word_buffer.substr(0, this.size() - count);
-        return suffix;
+        return this.word_buffer.splice(this.size() - count, count).join("");
+    };
+    
+    SnowballStemmer.prototype.append = function (str) {
+        Array.prototype.push.apply(this.word_buffer, str.split(""));
     };
     
     SnowballStemmer.prototype.cutEndIfR1 = function (count) {
@@ -65,7 +67,9 @@ var SnowballStemmer =
     };
     
     SnowballStemmer.prototype.endsWith = function (end) {
-        return this.word_buffer.endsWith(end);
+        var len = this.word_buffer.length;
+        return (len >= end.length
+                && this.word_buffer.slice(len - end.length, len).join("") === end);
     };
     
     SnowballStemmer.prototype.endsWithOneOf = function () {
@@ -79,14 +83,14 @@ var SnowballStemmer =
     
     SnowballStemmer.prototype.charAt = function (i) {
         if (i < 0) {
-            return this.word_buffer.charAt(this.size() - i);
+            return this.word_buffer[this.size() + i];
         } else {
-            return this.word_buffer.charAt(i);
+            return this.word_buffer[i];
         }         
     };
     
     SnowballStemmer.prototype.setCharAt = function (i, chr) {
-        this.word_buffer = this.word_buffer.substr(0, i) + chr + this.word_buffer.substr(i + chr.length);
+        this.word_buffer[i] = chr.charAt(0);
     };
     
     SnowballStemmer.prototype.size = function () {
@@ -215,10 +219,10 @@ var SnowballStemmer =
             //if preceded by er or en, delete if in R1
             if (this.endsWithOneOf("en", "er")) {
                 if (this.cutEndIfR1(2) === false) {
-                    this.word_buffer += suffix;
+                    this.append(suffix);
                 }
             } else {
-                this.word_buffer += suffix;
+                this.append(suffix);
                 this.cutEndIfR2(4);
             }
         }
