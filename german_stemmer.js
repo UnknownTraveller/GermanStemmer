@@ -18,7 +18,6 @@ var SnowballStemmer =
     SnowballStemmer.prototype.setInitState = function () {
         this.R1 = -1;
         this.R2 = -1;
-        this.STR_SIZE = 0;
         this.word_buffer = "";
     };
     
