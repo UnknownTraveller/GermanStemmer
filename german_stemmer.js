@@ -1,6 +1,6 @@
 // based on http://snowball.tartarus.org/algorithms/german/stemmer.html
 
-if(typeof natural === "undefined") {
+if (typeof natural === "undefined") {
     window.natural = {};
 }
 
@@ -32,7 +32,7 @@ window.SnowballStemmer =
         }
         
         if (start < len && start > 0) {
-            for (var i = start; i < len; i += 1) {"Hall"
+            for (var i = start; i < len; i += 1) {
                 if (!SnowballStemmer.isVowel(this.charAt(i))
                    && SnowballStemmer.isVowel(this.charAt(i-1)))
                     {
