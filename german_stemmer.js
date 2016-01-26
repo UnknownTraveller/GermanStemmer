@@ -98,13 +98,13 @@ var SnowballStemmer =
         for(var i = 1; i < this.size(); ++i) {
             var c = this.charAt(i);
             if (c == 'u') {
-                if(SnowballStemmer.isVowel(this.charAt(i-1))
+                if (SnowballStemmer.isVowel(this.charAt(i-1))
                   && SnowballStemmer.isVowel(this.charAt(i+1)))
                 {
                     this.setCharAt(i, 'U');
                 }
             } else if (c == 'y') {
-                if(SnowballStemmer.isVowel(this.charAt(i-1))
+                if (SnowballStemmer.isVowel(this.charAt(i-1))
                   && SnowballStemmer.isVowel(this.charAt(i+1)))
                 {
                     this.setCharAt(i, 'Y');
@@ -119,7 +119,7 @@ var SnowballStemmer =
          */
         this.R1 = this.defineR(0);
         this.R2 = this.defineR(this.R1);
-        if(this.R1 < 3 && this.R1 > -1) {
+        if (this.R1 < 3 && this.R1 > -1) {
             this.R1 = 3;
         }
     };
@@ -172,7 +172,7 @@ var SnowballStemmer =
             this.cutEndIfR1(2);
         }
         // b, d, f, g, h, k, l, m, n or t
-        else if(this.endsWithOneOf("bst", "dst", "fst", "gst", "hst", "kst", "lst", "mst", "nst", "tst")) {
+        else if (this.endsWithOneOf("bst", "dst", "fst", "gst", "hst", "kst", "lst", "mst", "nst", "tst")) {
             if (this.size() > 5) {
                 this.cutEndIfR1(2);
             }
@@ -180,7 +180,7 @@ var SnowballStemmer =
     };
     
     SnowballStemmer.prototype.step3 = function () {
-        if(this.R1 < 0 || this.R2 < 0) {
+        if (this.R1 < 0 || this.R2 < 0) {
             return;
         }
         
@@ -214,7 +214,7 @@ var SnowballStemmer =
             var suffix = this.cutEnd(4);
             //if preceded by er or en, delete if in R1
             if (this.endsWithOneOf("en", "er")) {
-                if(this.cutEndIfR1(2) === false) {
+                if (this.cutEndIfR1(2) === false) {
                     this.word_buffer += suffix;
                 }
             } else {
@@ -261,7 +261,7 @@ var SnowballStemmer =
     };
     
     SnowballStemmer.prototype.stem = function () {
-        if(arguments.length > 0) {
+        if (arguments.length > 0) {
             this.setInitState();
             this.setWord(arguments[0]);
         }
@@ -278,5 +278,14 @@ var SnowballStemmer =
         return stemmer.stem(word);
     };
     
-    return SnowballStemmer;
+    SnowballStemmer.attach = function () {
+        String.prototype.stem = function () {
+            return SnowballStemmer.stem(this);
+        };
+    };
+    
+    return {
+        stem: SnowballStemmer.stem,
+        attach: SnowballStemmer.attach
+    };
 })();
