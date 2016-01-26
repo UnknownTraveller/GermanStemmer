@@ -41,7 +41,7 @@ var SnowballStemmer =
     
     SnowballStemmer.prototype.setWord = function (word) {
         //replace ß by ss
-        this.word_buffer = word.replace("ß", "ss");
+        this.word_buffer = word.toLocaleLowerCase().replace("ß", "ss");
     };
     
     SnowballStemmer.prototype.cutEnd = function (count) {
