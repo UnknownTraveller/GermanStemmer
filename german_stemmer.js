@@ -1,7 +1,11 @@
 // based on http://snowball.tartarus.org/algorithms/german/stemmer.html
 
-var SnowballStemmer =
-    natural.SnowballStemmer = 
+if(typeof natural === "undefined") {
+    window.natural = {};
+}
+
+window.SnowballStemmer =
+    window.natural.SnowballStemmer = 
 (function () {
     "use strict";
           
