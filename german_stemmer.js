@@ -17,7 +17,7 @@ module.exports =
     SnowballStemmer.prototype.setInitState = function () {
         this.R1 = -1;
         this.R2 = -1;
-        this.word_buffer = "";
+        this.word_buffer = [];
     };
     
     SnowballStemmer.prototype.defineR = function (start) {
