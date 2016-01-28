@@ -1,0 +1,26 @@
+{
+  "name": "natural_speaking",
+  "version": "1.0.0",
+  "description": "a sample application for natural.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arkandosDE/GermanStemmer.git"
+  },
+  "keywords": [
+    "natural",
+    "javascript"
+  ],
+  "author": "Joshua Reusch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arkandosDE/GermanStemmer/issues"
+  },
+  "homepage": "https://github.com/arkandosDE/GermanStemmer#readme",
+  "dependencies": {
+      "natural": "*"
+  }
+}
