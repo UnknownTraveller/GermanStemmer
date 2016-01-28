@@ -1,11 +1,6 @@
 // based on http://snowball.tartarus.org/algorithms/german/stemmer.html
 
-if (typeof natural === "undefined") {
-    window.natural = {};
-}
-
-window.SnowballStemmer =
-    window.natural.SnowballStemmer = 
+module.exports = 
 (function () {
     "use strict";
           
@@ -289,6 +284,18 @@ window.SnowballStemmer =
     SnowballStemmer.attach = function () {
         String.prototype.stem = function () {
             return SnowballStemmer.stem(this);
+        };
+        String.prototype.tokenizeAndStem = function () {
+            var tokenizer = require("./german_tokenizer"),
+                stemmer = new SnowballStemmer();
+            
+            var tokens = tokenizer.tokenize(this);
+            
+            for(var i = 0; i < tokens.length; ++i) {
+                tokens[i] = stemmer.stem(tokens[i]);
+            }
+            
+            return tokens;
         };
     };
     
